@@ -21,15 +21,21 @@ Begin
 		variable cpt_freq : integer range 0 to 65535 := 0;
 	begin
 		if (clk'event and clk='1') then				-- Front montant de l'H
-				if(cpt_freq < duty) then
-						out_pwm <= '1';
-						cpt_freq := cpt_freq + 1;
-				elsif(cpt_freq > duty and cpt_freq < freq) then
-						out_pwm <='0';
-						cpt_freq := cpt_freq + 1;
-				elsif(cpt_freq = freq) then
-						cpt_freq := 0;
-				end if;
+					if(Enable_pwm = '1') then
+							if(cpt_freq < duty) then
+									out_pwm <= '1';
+									cpt_freq := cpt_freq + 1;
+							elsif(cpt_freq < freq) then
+									out_pwm <='0';
+									cpt_freq := cpt_freq + 1;
+							elsif(cpt_freq = freq) then
+									cpt_freq := 0;
+							end if;
+					elsif(Enable_pwm = '0') then					-- A verifier si Enable et Raz_N sont asynchrone ????
+							out_pwm <= '0';
+					elsif(Raz_n = '1') then
+							out_pwm <= '0';
+					end if;
 		end if;
 	end process;
 
