@@ -33,7 +33,7 @@ Begin
 							end if;
 					elsif(Enable_pwm = '0') then					-- A verifier si Enable et Raz_N sont asynchrone ????
 							out_pwm <= '0';
-					elsif(Raz_n = '1') then
+					elsif(Raz_n = '1') then							-- A VERIFIER
 							out_pwm <= '0';
 					end if;
 		end if;
